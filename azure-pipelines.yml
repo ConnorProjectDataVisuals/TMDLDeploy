@@ -19,8 +19,7 @@ jobs:
       deploy:
         steps:
         - checkout: self
-          lfs: true
-        - script: /app/pbi-tools/pbi-tools.core deploy . "$(PROFILE)" "$(ENVIRONMENT)"
+        - script: /app/pbi-tools/pbi-tools.core deploy . "Datasets"
           displayName: 'pbi-tools Deploy'
           env:
             PBI_CLIENT_SECRET: $(PBI_CLIENT_SECRET)

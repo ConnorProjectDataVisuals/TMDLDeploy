@@ -8,8 +8,8 @@
       },
       "authentication": {
         "type": "ServicePrincipal",
-        "tenantId": "4a86d5bb-4173-45ee-bfd5-a3b56ee2d3d5",
-        "clientId": "4dafd220-5741-43df-ac9e-bffe0c650489",
+        "tenantId": "03997685-d3a0-4613-b48c-ba3cdc08f157",
+        "clientId": "52c6844a-64de-41f8-a074-cc517a6b9429",
         "clientSecret": "%PBI_CLIENT_SECRET%"
       },
       "options": {        
@@ -38,8 +38,8 @@
       },
       "environments": {
         "Development": {
-          "workspace": "TMDL {Dev}",
-          "displayName": "Sales",
+          "workspace": "DDD Reports",
+          "displayName": "YOUR_DATASET_NAME",
           "refresh": {}
         },
         "Production": {
