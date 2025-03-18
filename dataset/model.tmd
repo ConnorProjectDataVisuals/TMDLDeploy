@@ -1,4 +1,5 @@
 model Model
+    name: "Sales Analysis"
 	compatibilityLevel: 1567
 	culture: en-US
 	dataAccessOptions:
