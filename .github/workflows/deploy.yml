@@ -1,16 +1,6 @@
 name: Deploy
 
-# Run workflow when its a pull request into main with changes in /dataset
 on:
-  pull_request:
-    types:
-      - closed
-    branches:
-      - 'main'
-    paths:
-      - 'dataset/**'
-      
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
     inputs:
       whatIf:
@@ -19,40 +9,18 @@ on:
         required: true
         default: true
 
-env:
-  PROFILE: Datasets
-  Environment: ${{ github.head_ref }}
-  
 jobs:    
   Deployment:
     runs-on: ubuntu-latest
-    # Only run when its a closed PR + Merge, without any merge skip
-    if: github.event.pull_request.merged == true || github.event.inputs.whatIf == 'true'
     environment: Development
     container:
       image: ghcr.io/pbi-tools/pbi-tools-core:latest
-
+    
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
-      - name: Variables
-        run: echo "$Environment"
-        
-      - name: pbi-tools info
-        run: |
-          /app/pbi-tools/pbi-tools.core info
-
-      - name: pbi-tools deploy (WhatIf)
-        if: ${{ github.event.inputs.whatIf == 'true' }}
-        run: |
-          /app/pbi-tools/pbi-tools.core deploy . "$PROFILE" -whatIf
-        env:
-          PBI_CLIENT_SECRET: ${{ secrets.PBI_CLIENT_SECRET }}
-
+      
       - name: pbi-tools deploy
-        if: ${{ github.event.inputs.whatIf != 'true' }}
         run: |
-          /app/pbi-tools/pbi-tools.core deploy . "$PROFILE"
+          /app/pbi-tools/pbi-tools.core deploy . "Datasets"
         env:
           PBI_CLIENT_SECRET: ${{ secrets.PBI_CLIENT_SECRET }}

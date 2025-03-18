@@ -39,7 +39,7 @@
       "environments": {
         "Development": {
           "workspace": "DDD Reports",
-          "displayName": "YOUR_DATASET_NAME",
+          "displayName": "Sales Analysis",
           "refresh": {}
         },
         "Production": {
