@@ -3,8 +3,8 @@
     "Datasets": {
       "mode": "Dataset",
       "source": {
-        "type": "Folder",
-       "path": "./dataset/The Space Challenge.SemanticModel/definition"
+        "type": "Json",
+        "path": "./dataset"
       },
       "authentication": {
         "type": "ServicePrincipal",

@@ -1,8 +1,10 @@
 {
-  "name": "Simple Dataset",
+  "name": "The Space Challenge",
   "compatibilityLevel": 1500,
   "model": {
     "culture": "en-US",
+    "defaultPowerBIDataSourceVersion": "PowerBI_V3",
+    "sourceQueryCulture": "en-US",
     "tables": [
       {
         "name": "DummyTable",
