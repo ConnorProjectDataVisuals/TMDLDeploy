@@ -12,41 +12,10 @@
         "clientId": "52c6844a-64de-41f8-a074-cc517a6b9429",
         "clientSecret": "%PBI_CLIENT_SECRET%"
       },
-      "options": {        
-        "dataset": {
-          "name": "Sales Analysis",
-          "replaceParameters": true,
-          "deployEmbeddedReport": false
-        },
-        "refresh": {
-          "enabled": true,
-          "skipNewDataset": true,
-          "method": "XMLA",
-          "type": "Full",
-          "tracing": {
-            "enabled": true,
-            "logEvents": {
-              "filter": [
-                "*|TabularRefresh|Partition",
-                "*|ReadData|Partition"
-              ]
-            }
-          }
-        }
-      },
-      "parameters": {        
-        "[Environment]": "{{ENVIRONMENT}}" 
-      },
       "environments": {
         "Development": {
           "workspace": "DDD Reports",
-          "displayName": "Sales Analysis",
-          "refresh": {}
-        },
-        "Production": {
-          "workspace": "TMDL {PRD}",
-          "displayName": "Sales",
-          "refresh": {}
+          "displayName": "Simple Dataset"
         }
       }
     }
