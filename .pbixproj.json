@@ -3,7 +3,7 @@
     "Datasets": {
       "mode": "Dataset",
       "source": {
-        "type": "Json",
+        "type": "Folder",
         "path": "./dataset"
       },
       "authentication": {

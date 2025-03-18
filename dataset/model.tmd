@@ -1,6 +1,1 @@
-model Model
-    defaultPowerBIDataSourceVersion: PowerBI_V3
-    sourceQueryCulture: en-US
-    dataAccessOptions:
-        legacyRedirects
-        returnErrorValuesAsNull 
+model Model 
