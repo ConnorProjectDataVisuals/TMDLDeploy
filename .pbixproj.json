@@ -4,7 +4,7 @@
       "mode": "Dataset",
       "source": {
         "type": "Folder",
-        "path": "./dataset"
+       "path": "./dataset/The Space Challenge.SemanticModel/definition"
       },
       "authentication": {
         "type": "ServicePrincipal",
@@ -15,7 +15,7 @@
       "environments": {
         "Development": {
           "workspace": "DDD Reports",
-          "displayName": "Sales Analysis Data"
+       "displayName": "The Space Challenge"
         }
       }
     }
