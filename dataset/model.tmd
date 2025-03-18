@@ -1,13 +1,12 @@
 /// Sales Analysis Dataset
-database 'Sales Analysis'
+database Example
 	compatibilityLevel: 1567
-	model Model
-		culture: en-US
-		dataAccessOptions:
-			legacyRedirects
-			returnErrorValuesAsNull
-		defaultPowerBIDataSourceVersion: PowerBI_V3
-		discourageImplicitMeasures
-		language: 1033
-		sourceQueryCulture: en-US
+	culture: en-US
+	dataAccessOptions:
+		legacyRedirects
+		returnErrorValuesAsNull
+	defaultPowerBIDataSourceVersion: PowerBI_V3
+	discourageImplicitMeasures
+	language: 1033
+	sourceQueryCulture: en-US
 
