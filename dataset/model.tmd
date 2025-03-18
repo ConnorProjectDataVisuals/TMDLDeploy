@@ -9,6 +9,7 @@ database Sales
 	discourageImplicitMeasures
 	language: 1033
 	sourceQueryCulture: en-US
+	storageLocation: ""
 
 queryGroup 'Raw Data'
 
