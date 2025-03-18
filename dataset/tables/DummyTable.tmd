@@ -1,4 +1,0 @@
-table DummyTable
-    column ID
-        dataType: Int64
-        isKey: true 

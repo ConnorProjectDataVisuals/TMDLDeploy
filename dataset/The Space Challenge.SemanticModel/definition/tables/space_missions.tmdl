@@ -1,0 +1,160 @@
+table space_missions
+	lineageTag: 90757da2-9a2e-47a7-8a7f-58f75fc57fc2
+
+	measure 'Success Rate' =
+			
+			DIVIDE(
+			   CALCULATE(COUNTA(space_missions[MissionStatus]), space_missions[MissionStatus] = "Success"),
+			   Count(space_missions[Mission]))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 366ae79b-8351-4793-8902-895911cbd676
+
+		changedProperty = FormatString
+
+	measure 'Cost USD$' =
+			
+			VAR number_ =
+			SUM ( space_missions[Price] )
+			VAR decimal = "0.0"
+			RETURN
+			IF (
+			number_ >= 1000000,
+			FORMAT ( number_ / 1000000, decimal & "M" ),
+			IF ( number_ >= 1000, FORMAT ( number_ / 1000, decimal & "B" ) )
+			)
+		lineageTag: e356ca5c-be9b-4f46-bf53-d3877abbad8a
+
+	column Company
+		dataType: string
+		lineageTag: f645f4cf-0254-4149-b42d-66c0c80afcfc
+		summarizeBy: none
+		sourceColumn: Company
+
+		annotation SummarizationSetBy = Automatic
+
+	column Location
+		dataType: string
+		lineageTag: 5f1c5556-2c21-4f27-a674-7e594f4ba1a4
+		summarizeBy: none
+		sourceColumn: Location
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 4f06b91a-2a6b-4ddb-acb4-33d6712d6700
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Time
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 31267e34-045c-4385-b59b-cc535d79ab4c
+		summarizeBy: none
+		sourceColumn: Time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column Rocket
+		dataType: string
+		lineageTag: 70cd2df0-63f1-4eb1-8417-12fcf2581313
+		summarizeBy: none
+		sourceColumn: Rocket
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mission
+		dataType: string
+		lineageTag: b234953d-1dff-483f-ad25-1cd0cde300d7
+		summarizeBy: none
+		sourceColumn: Mission
+
+		annotation SummarizationSetBy = Automatic
+
+	column RocketStatus
+		dataType: string
+		lineageTag: 4ef27bf9-9050-4329-910a-b24ef58d5373
+		summarizeBy: none
+		sourceColumn: RocketStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column Price
+		dataType: int64
+		lineageTag: 087c32eb-37fa-450f-8631-f56704fe6f86
+		summarizeBy: sum
+		sourceColumn: Price
+
+		changedProperty = FormatString
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column MissionStatus
+		dataType: string
+		lineageTag: a4b8d2e3-491f-4ec6-8810-80c0a2e64d92
+		summarizeBy: none
+		sourceColumn: MissionStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Country Launch Site'
+		dataType: string
+		lineageTag: ce274cdb-d5a3-45a1-a8aa-7b799a653b73
+		summarizeBy: none
+		sourceColumn: Country Launch Site
+
+		annotation SummarizationSetBy = Automatic
+
+	column Private/Gov
+		dataType: string
+		lineageTag: 5a2e54df-75b7-44e5-b020-1871c3ed74ec
+		summarizeBy: none
+		sourceColumn: Private/Gov
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mission Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0dcc858a-3513-4123-8a35-ec6efc31e3f8
+		summarizeBy: sum
+		sourceColumn: Mission Number
+
+		annotation SummarizationSetBy = Automatic
+
+	partition space_missions-c16f0053-ce07-4e6f-bee0-ef918abf4215 = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Odyssey\Downloads\space_missions.csv"),[Delimiter=",", Columns=9, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Company", type text}, {"Location", type text}, {"Date", type date}, {"Time", type time}, {"Rocket", type text}, {"Mission", type text}, {"RocketStatus", type text}, {"Price", type text}, {"MissionStatus", type text}}),
+				    #"Inserted Text After Delimiter" = Table.AddColumn(#"Changed Type", "Text After Delimiter", each Text.AfterDelimiter([Location], ",", {0, RelativePosition.FromEnd}), type text),
+				    #"Replaced Value" = Table.ReplaceValue(#"Inserted Text After Delimiter","New Mexico","USA",Replacer.ReplaceText,{"Text After Delimiter"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Replaced Value",{{"Text After Delimiter", "Country Launch Site"}}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Renamed Columns"," Shahrud Missile Test Site","Iran",Replacer.ReplaceText,{"Country Launch Site"}),
+				    #"Replaced Value2" = Table.ReplaceValue(#"Replaced Value1","Gran Canaria","Spain",Replacer.ReplaceText,{"Country Launch Site"}),
+				    #"Replaced Value4" = Table.ReplaceValue(#"Replaced Value2","Russia","Russian Federation",Replacer.ReplaceText,{"Country Launch Site"}),
+				    #"Replaced Value3" = Table.ReplaceValue(#"Replaced Value4","Kazakhstan","Russian Federation",Replacer.ReplaceText,{"Country Launch Site"}),
+				    #"Added Conditional Column" = Table.AddColumn(#"Replaced Value3", "Private/Gov", each if [Company] = "NASA" then "Government Body/Contract" else if Text.Contains([Company], "USSR") then "Government Body/Contract" else if Text.Contains([Company], "US Air") then "Government Body/Contract" else if Text.Contains([Company], "US Navy") then "Government Body/Contract" else if [Company] = "AMBA" then "Government Body/Contract" else if [Company] = "UT" then "Government Body/Contract" else if Text.Contains([Company], "Armée de l'Air") then "Government BodGovernment Body/Contracty" else if [Company] = "ASI" then "Government Body/Contract" else if [Company] = "CNES" then "Government Body/Contract" else if [Company] = "ISAS" then "Government Body/Contract" else if [Company] = "RAE" then "Government Body/Contract" else if [Company] = "CECLES" then "Government Body/Contract" else if [Company] = "Roscosmos" then "Government Body/Contract" else if [Company] = "CASC" then "Government Body/Contract" else if [Company] = "ESA" then "Government Body/Contract" else if [Company] = "Boeing" then "Government Body/Contract" else "Private Company"),
+				    #"Added Index" = Table.AddIndexColumn(#"Added Conditional Column", "Index", 1, 1, Int64.Type),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Added Index",{{"Index", "Mission Number"}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns1",{{"Price", Currency.Type}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
