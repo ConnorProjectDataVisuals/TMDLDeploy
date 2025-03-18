@@ -1,5 +1,5 @@
-model Model
-    name: "Sales Analysis"
+database Sales
+	name: "Sales Analysis"
 	compatibilityLevel: 1567
 	culture: en-US
 	dataAccessOptions:
@@ -9,7 +9,6 @@ model Model
 	discourageImplicitMeasures
 	language: 1033
 	sourceQueryCulture: en-US
-	storageLocation: ""
 
 queryGroup 'Raw Data'
 
