@@ -1,4 +1,4 @@
-model Sales
+model Model
 	compatibilityLevel: 1567
 	culture: en-US
 	dataAccessOptions:
