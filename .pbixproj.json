@@ -15,7 +15,7 @@
       "environments": {
         "Development": {
           "workspace": "DDD Reports",
-          "displayName": "Simple Dataset"
+          "displayName": "Sales Analysis Data"
         }
       }
     }
