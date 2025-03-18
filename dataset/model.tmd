@@ -8,7 +8,7 @@ model 'Sales Analysis Data'
 	discourageImplicitMeasures
 	language: 1033
 	sourceQueryCulture: en-US
-	storageLocation: ""
+	storageLocation: "default"
 
 queryGroup 'Raw Data'
 	annotation PBI_QueryGroupOrder = 0
