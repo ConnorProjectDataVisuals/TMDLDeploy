@@ -1,5 +1,4 @@
-database Sales
-	name: "Sales Analysis"
+model Sales
 	compatibilityLevel: 1567
 	culture: en-US
 	dataAccessOptions:
